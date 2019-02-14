@@ -118,7 +118,6 @@ final class DocLexer extends AbstractLexer
         }
 
         $lowerValue = strtolower($value);
-
         if (isset($this->withCase[$lowerValue])) {
             return $this->withCase[$lowerValue];
         }
