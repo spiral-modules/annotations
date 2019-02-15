@@ -157,10 +157,17 @@ class Parser
             return $this->array(current($type));
         }
 
-        //    if ($this->lexer->isNextToken(DocLexer::T_AT)) {
-        //      return 'wat';
-        //  return $this->Annotation();
-        //        }
+        if ($type instanceof NodeInterface) {
+            if ($this->lexer->isNextToken(DocLexer::T_AT)) {
+                $this->lexer->moveNext();
+                $name = $this->identifier();
+                if ($name != $type->getName()) {
+                    throw new AnnotationException("unexpected node type");
+                }
+            }
+
+            return $this->parseNode(clone $type);
+        }
 
         if ($this->lexer->isNextToken(DocLexer::T_IDENTIFIER)) {
             return $this->identifier();

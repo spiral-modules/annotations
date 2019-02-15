@@ -24,12 +24,4 @@ class Scalar extends AbstractNode
         'array_int'   => [Parser::INTEGER],
         'array_float' => [Parser::FLOAT],
     ];
-
-    public $string;
-    public $integer;
-    public $bool;
-    public $float;
-    public $array_str;
-    public $array_int;
-    public $array_float;
 }

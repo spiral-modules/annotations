@@ -32,7 +32,11 @@ abstract class AbstractNode implements NodeInterface
     {
         $schema = static::SCHEMA;
 
-        // todo: init inner classes
+        array_walk_recursive($schema, function (&$v) {
+            if (is_string($v) && class_exists($v)) {
+                $v = new $v;
+            }
+        });
 
         return $schema;
     }
