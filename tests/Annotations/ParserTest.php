@@ -146,7 +146,9 @@ class ParserTest extends BaseTest
     }
 
     /**
-     * @nested (scalar=@nested(string="string"))
+     * @nested (
+     *     scalar=@nested(string="string")
+     * )
      *
      * @expectedException \Spiral\Annotations\Exception\AttributeException
      */
