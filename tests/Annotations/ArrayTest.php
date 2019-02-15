@@ -10,7 +10,8 @@ declare(strict_types=1);
 namespace Spiral\Annotations\Tests;
 
 use Spiral\Annotations\Parser;
-use Spiral\Annotations\Tests\Fixtures\ScalarNode;
+use Spiral\Annotations\Tests\Fixtures\Matrix;
+use Spiral\Annotations\Tests\Fixtures\Scalar;
 
 class ArrayTest extends BaseTest
 {
@@ -20,10 +21,10 @@ class ArrayTest extends BaseTest
     public function testString()
     {
         $p = new Parser();
-        $p->register(new ScalarNode());
+        $p->register(new Scalar());
 
         $nodes = $p->parse($this->getDoc('testString'));
-        $this->assertInstanceOf(ScalarNode::class, $nodes['scalar']);
+        $this->assertInstanceOf(Scalar::class, $nodes['scalar']);
         $this->assertSame(["a", "b"], $nodes['scalar']->array_str);
     }
 
@@ -33,10 +34,10 @@ class ArrayTest extends BaseTest
     public function testInteger()
     {
         $p = new Parser();
-        $p->register(new ScalarNode());
+        $p->register(new Scalar());
 
         $nodes = $p->parse($this->getDoc('testInteger'));
-        $this->assertInstanceOf(ScalarNode::class, $nodes['scalar']);
+        $this->assertInstanceOf(Scalar::class, $nodes['scalar']);
         $this->assertSame([1, 2, 3], $nodes['scalar']->array_int);
     }
 
@@ -46,10 +47,27 @@ class ArrayTest extends BaseTest
     public function testFloat()
     {
         $p = new Parser();
-        $p->register(new ScalarNode());
+        $p->register(new Scalar());
 
         $nodes = $p->parse($this->getDoc('testFloat'));
-        $this->assertInstanceOf(ScalarNode::class, $nodes['scalar']);
+        $this->assertInstanceOf(Scalar::class, $nodes['scalar']);
         $this->assertEquals([1.5, 2.3, 3.4], $nodes['scalar']->array_float);
+    }
+
+    /**
+     * @matrix (value={ {1,2,3}, {4,5,6}, {7,8,9} })
+     */
+    public function testMatrix()
+    {
+        $p = new Parser();
+        $p->register(new Matrix());
+
+        $nodes = $p->parse($this->getDoc('testMatrix'));
+        $this->assertInstanceOf(Matrix::class, $nodes['matrix']);
+        $this->assertEquals([
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]
+        ], $nodes['matrix']->value);
     }
 }

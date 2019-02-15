@@ -12,7 +12,7 @@ namespace Spiral\Annotations\Tests\Fixtures;
 use Spiral\Annotations\AbstractNode;
 use Spiral\Annotations\Parser;
 
-class ScalarNode extends AbstractNode
+class Scalar extends AbstractNode
 {
     protected const NAME   = 'scalar';
     protected const SCHEMA = [

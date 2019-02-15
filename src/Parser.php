@@ -142,12 +142,7 @@ class Parser
             throw new AnnotationException("Undefined node attribute {$name}");
         }
 
-        $type = $node->getSchema()[$name];
-        if (is_array($type)) {
-            $node->setProperty($name, $this->array(current($type)));
-        } else {
-            $node->setProperty($name, $this->value($type));
-        }
+        $node->setProperty($name, $this->value($node->getSchema()[$name]));
     }
 
     /**
@@ -158,6 +153,9 @@ class Parser
     private function value($type)
     {
         // todo: nested(!)
+        if (is_array($type)) {
+            return $this->array(current($type));
+        }
 
         //    if ($this->lexer->isNextToken(DocLexer::T_AT)) {
         //      return 'wat';
@@ -277,4 +275,25 @@ class Parser
 
         return null;
     }
+
+    //    private function syntaxError($expected, $token = null)
+    //    {
+    //        if ($token === null) {
+    //            $token = $this->lexer->lookahead;
+    //        }
+    //
+    //        $message  = sprintf('Expected %s, got ', $expected);
+    //        $message .= ($this->lexer->lookahead === null)
+    //            ? 'end of string'
+    //            : sprintf("'%s' at position %s", $token['value'], $token['position']);
+    //
+    //        if (strlen($this->context)) {
+    //            $message .= ' in ' . $this->context;
+    //        }
+    //
+    //        $message .= '.';
+    //
+    //        throw AnnotationException::syntaxError($message);
+    //    }
+
 }

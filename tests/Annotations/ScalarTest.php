@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Spiral\Annotations\Tests;
 
 use Spiral\Annotations\Parser;
-use Spiral\Annotations\Tests\Fixtures\ScalarNode;
+use Spiral\Annotations\Tests\Fixtures\Scalar;
 
 class ScalarTest extends BaseTest
 {
@@ -20,10 +20,10 @@ class ScalarTest extends BaseTest
     public function testString()
     {
         $p = new Parser();
-        $p->register(new ScalarNode());
+        $p->register(new Scalar());
 
         $nodes = $p->parse($this->getDoc('testString'));
-        $this->assertInstanceOf(ScalarNode::class, $nodes['scalar']);
+        $this->assertInstanceOf(Scalar::class, $nodes['scalar']);
         $this->assertSame("message", $nodes['scalar']->string);
     }
 
@@ -33,10 +33,10 @@ class ScalarTest extends BaseTest
     public function testStringIdentifier()
     {
         $p = new Parser();
-        $p->register(new ScalarNode());
+        $p->register(new Scalar());
 
         $nodes = $p->parse($this->getDoc('testStringIdentifier'));
-        $this->assertInstanceOf(ScalarNode::class, $nodes['scalar']);
+        $this->assertInstanceOf(Scalar::class, $nodes['scalar']);
         $this->assertSame("message", $nodes['scalar']->string);
     }
 
@@ -47,10 +47,10 @@ class ScalarTest extends BaseTest
     public function testBool()
     {
         $p = new Parser();
-        $p->register(new ScalarNode());
+        $p->register(new Scalar());
 
         $nodes = $p->parse($this->getDoc('testBool'));
-        $this->assertInstanceOf(ScalarNode::class, $nodes['scalar']);
+        $this->assertInstanceOf(Scalar::class, $nodes['scalar']);
         $this->assertSame(true, $nodes['scalar']->bool);
     }
 
@@ -60,10 +60,10 @@ class ScalarTest extends BaseTest
     public function testBoolFalse()
     {
         $p = new Parser();
-        $p->register(new ScalarNode());
+        $p->register(new Scalar());
 
         $nodes = $p->parse($this->getDoc('testBoolFalse'));
-        $this->assertInstanceOf(ScalarNode::class, $nodes['scalar']);
+        $this->assertInstanceOf(Scalar::class, $nodes['scalar']);
         $this->assertSame(false, $nodes['scalar']->bool);
     }
 
@@ -73,10 +73,10 @@ class ScalarTest extends BaseTest
     public function testInteger()
     {
         $p = new Parser();
-        $p->register(new ScalarNode());
+        $p->register(new Scalar());
 
         $nodes = $p->parse($this->getDoc('testInteger'));
-        $this->assertInstanceOf(ScalarNode::class, $nodes['scalar']);
+        $this->assertInstanceOf(Scalar::class, $nodes['scalar']);
         $this->assertSame(101, $nodes['scalar']->integer);
     }
 
@@ -86,10 +86,10 @@ class ScalarTest extends BaseTest
     public function testFloat()
     {
         $p = new Parser();
-        $p->register(new ScalarNode());
+        $p->register(new Scalar());
 
         $nodes = $p->parse($this->getDoc('testFloat'));
-        $this->assertInstanceOf(ScalarNode::class, $nodes['scalar']);
+        $this->assertInstanceOf(Scalar::class, $nodes['scalar']);
         $this->assertEquals(101.555, $nodes['scalar']->float);
     }
 
@@ -99,10 +99,10 @@ class ScalarTest extends BaseTest
     public function testFull()
     {
         $p = new Parser();
-        $p->register(new ScalarNode());
+        $p->register(new Scalar());
 
         $nodes = $p->parse($this->getDoc('testFull'));
-        $this->assertInstanceOf(ScalarNode::class, $nodes['scalar']);
+        $this->assertInstanceOf(Scalar::class, $nodes['scalar']);
         $this->assertEquals(101.555, $nodes['scalar']->float);
         $this->assertSame(false, $nodes['scalar']->bool);
         $this->assertSame(101, $nodes['scalar']->integer);
@@ -120,10 +120,10 @@ class ScalarTest extends BaseTest
     public function testFullSpaced()
     {
         $p = new Parser();
-        $p->register(new ScalarNode());
+        $p->register(new Scalar());
 
         $nodes = $p->parse($this->getDoc('testFullSpaced'));
-        $this->assertInstanceOf(ScalarNode::class, $nodes['scalar']);
+        $this->assertInstanceOf(Scalar::class, $nodes['scalar']);
         $this->assertEquals(101.555, $nodes['scalar']->float);
         $this->assertSame(false, $nodes['scalar']->bool);
         $this->assertSame(101, $nodes['scalar']->integer);
@@ -141,10 +141,10 @@ class ScalarTest extends BaseTest
     public function testFullSpacedEndComma()
     {
         $p = new Parser();
-        $p->register(new ScalarNode());
+        $p->register(new Scalar());
 
         $nodes = $p->parse($this->getDoc('testFullSpacedEndComma'));
-        $this->assertInstanceOf(ScalarNode::class, $nodes['scalar']);
+        $this->assertInstanceOf(Scalar::class, $nodes['scalar']);
         $this->assertEquals(101.555, $nodes['scalar']->float);
         $this->assertSame(false, $nodes['scalar']->bool);
         $this->assertSame(101, $nodes['scalar']->integer);
