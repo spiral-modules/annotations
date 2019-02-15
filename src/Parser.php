@@ -30,8 +30,8 @@ final class Parser
     /** @var DocLexer */
     private $lexer;
 
-    /** @var NodeInterface[] */
-    private $nodes = [];
+    /** @var AnnotationInterface[] */
+    private $annotations = [];
 
     /** @var string */
     private $context = '';
@@ -45,20 +45,28 @@ final class Parser
     }
 
     /**
-     * Register new enter-point node. Each parsed node will be based on cloned copy of provided enter-point.
+     * Clone the parser.
+     */
+    public function __clone()
+    {
+        $this->lexer = clone $this->lexer;
+    }
+
+    /**
+     * Register new enter-point annotation. Each parsed node will be based on cloned copy of provided enter-point.
      *
-     * @param NodeInterface $node
+     * @param AnnotationInterface $annotation
      * @return self
      *
      * @throws ParserException
      */
-    public function register(NodeInterface $node): self
+    public function register(AnnotationInterface $annotation): self
     {
-        if (isset($this->nodes[$node->getName()])) {
-            throw new ParserException("Node with name {$node->getName()} already registered");
+        if (isset($this->annotations[$annotation->getName()])) {
+            throw new ParserException("Node with name {$annotation->getName()} already registered");
         }
 
-        $this->nodes[$node->getName()] = $node;
+        $this->annotations[$annotation->getName()] = $annotation;
         return $this;
     }
 
@@ -75,7 +83,7 @@ final class Parser
     {
         $this->context = $body;
 
-        if ($this->nodes === []) {
+        if ($this->annotations === []) {
             throw new ParserException("Unable to parse without starting nodes");
         }
 
@@ -167,30 +175,30 @@ final class Parser
         // check if we have an annotation
         $name = $this->identifier();
 
-        if (!isset($this->nodes[$name])) {
+        if (!isset($this->annotations[$name])) {
             // undefined node or not a node at all
             return;
         }
 
-        /** @var NodeInterface $node */
-        $node = clone $this->nodes[$name];
+        /** @var AnnotationInterface $ann */
+        $ann = clone $this->annotations[$name];
 
         if ($this->lexer->isNextToken(DocLexer::T_OPEN_PARENTHESIS)) {
-            foreach ($this->attributes($this->nodes[$name]) as $attribute => $value) {
-                $node->setAttribute($attribute, $value);
+            foreach ($this->attributes($this->annotations[$name]) as $attribute => $value) {
+                $ann->setAttribute($attribute, $value);
             }
         }
 
-        yield $name => $node;
+        yield $name => $ann;
     }
 
     /**
      * Parse node attributes;
      *
-     * @param NodeInterface $node
+     * @param AnnotationInterface $node
      * @return \Generator
      */
-    private function attributes(NodeInterface $node): \Generator
+    private function attributes(AnnotationInterface $node): \Generator
     {
         $this->match([DocLexer::T_OPEN_PARENTHESIS]);
 
@@ -245,7 +253,7 @@ final class Parser
             return iterator_to_array($this->array(current($type)));
         }
 
-        if ($type instanceof NodeInterface) {
+        if ($type instanceof AnnotationInterface) {
             // name clarification (Doctrine like)
             if ($this->lexer->isNextToken(DocLexer::T_AT)) {
                 $this->lexer->moveNext();
@@ -260,12 +268,12 @@ final class Parser
                 }
             }
 
-            $node = clone $type;
-            foreach ($this->attributes($node) as $attribute => $value) {
-                $node->setAttribute($attribute, $value);
+            $ann = clone $type;
+            foreach ($this->attributes($ann) as $attribute => $value) {
+                $ann->setAttribute($attribute, $value);
             }
 
-            return $node;
+            return $ann;
         }
 
         return $this->filter($this->rawValue(), $type);

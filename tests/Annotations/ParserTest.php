@@ -10,11 +10,17 @@ declare(strict_types=1);
 namespace Spiral\Annotations\Tests;
 
 use Spiral\Annotations\Parser;
-use Spiral\Annotations\Tests\Node\Nested;
-use Spiral\Annotations\Tests\Node\Scalar;
+use Spiral\Annotations\Tests\Annotation\Nested;
+use Spiral\Annotations\Tests\Annotation\Scalar;
 
 class ParserTest extends BaseTest
 {
+    public function testClone()
+    {
+        $p = new Parser();
+        $this->assertNotSame(clone $p, $p);
+    }
+
     /**
      * @expectedException \Spiral\Annotations\Exception\ParserException
      */

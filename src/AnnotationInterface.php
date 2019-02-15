@@ -12,7 +12,7 @@ namespace Spiral\Annotations;
 /**
  * Carries information about annotation structure and it values.
  */
-interface NodeInterface
+interface AnnotationInterface
 {
     /**
      * Public and unique node name.

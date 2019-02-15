@@ -7,12 +7,12 @@ declare(strict_types=1);
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Annotations\Tests\Node;
+namespace Spiral\Annotations\Tests\Annotation;
 
-use Spiral\Annotations\AbstractNode;
+use Spiral\Annotations\AbstractAnnotation;
 use Spiral\Annotations\Parser;
 
-class Matrix extends AbstractNode
+class Matrix extends AbstractAnnotation
 {
     protected const NAME   = 'matrix';
     protected const SCHEMA = [
