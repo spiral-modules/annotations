@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace Spiral\Annotations\Tests\Node;
 
-use Spiral\Annotations\Node;
+use Spiral\Annotations\AbstractNode;
 use Spiral\Annotations\Parser;
 
-class Scalar extends Node
+class Scalar extends AbstractNode
 {
     protected const NAME   = 'scalar';
     protected const SCHEMA = [

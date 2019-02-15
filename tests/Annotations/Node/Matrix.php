@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace Spiral\Annotations\Tests\Node;
 
-use Spiral\Annotations\Node;
+use Spiral\Annotations\AbstractNode;
 use Spiral\Annotations\Parser;
 
-class Matrix extends Node
+class Matrix extends AbstractNode
 {
     protected const NAME   = 'matrix';
     protected const SCHEMA = [

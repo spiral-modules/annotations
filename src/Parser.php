@@ -199,6 +199,7 @@ class Parser
                 return null;
 
             default:
+                dump($this->lexer->lookahead);
                 return 'wat';
         }
     }
@@ -218,6 +219,23 @@ class Parser
 
             if ($this->lexer->lookahead['type'] === DocLexer::T_COMMA) {
                 $this->lexer->moveNext();
+                continue;
+            }
+
+            if ($this->lexer->lookahead['type'] === DocLexer::T_COLON) {
+                $key = $this->value(null);
+                $this->lexer->moveNext();
+                $result[$key] = $this->value($type);
+
+                continue;
+            }
+
+            $next = $this->lexer->glimpse();
+            if (is_array($next) && $next['type'] == DocLexer::T_COLON) {
+                $key = $this->value(null);
+                $this->match([DocLexer::T_COLON]);
+                $result[$key] = $this->value($type);
+
                 continue;
             }
 

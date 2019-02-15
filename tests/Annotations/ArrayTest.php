@@ -42,6 +42,23 @@ class ArrayTest extends BaseTest
     }
 
     /**
+     * @scalar (array_int = {"a": 1, "b": 2, "c": 3})
+     */
+    public function testIndexedInteger()
+    {
+        $p = new Parser();
+        $p->register(new Scalar());
+
+        $nodes = $p->parse($this->getDoc('testIndexedInteger'));
+        $this->assertInstanceOf(Scalar::class, $nodes['scalar']);
+        $this->assertSame([
+            'a' => 1,
+            'b' => 2,
+            'c' => 3
+        ], $nodes['scalar']->array_int);
+    }
+
+    /**
      * @scalar (array_float = {1.5, 2.3, 3.4})
      */
     public function testFloat()

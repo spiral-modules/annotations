@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace Spiral\Annotations\Tests\Node;
 
-use Spiral\Annotations\Node;
+use Spiral\Annotations\AbstractNode;
 use Spiral\Annotations\Parser;
 
-class Nested extends Node
+class Nested extends AbstractNode
 {
     protected const NAME   = 'nested';
     protected const SCHEMA = [
