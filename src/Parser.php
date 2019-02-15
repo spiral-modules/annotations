@@ -12,6 +12,10 @@ namespace Spiral\Annotations;
 use Spiral\Annotations\Exception\AnnotationException;
 use Spiral\Annotations\Exception\ParserException;
 
+/**
+ * Parser parses docComments using list of node enter-points. Each node must define list of it's attributes. Attribute
+ * can point to nested node or array or nested nodes which will be parsed recursively.
+ */
 class Parser
 {
     // Embedded node types
@@ -19,36 +23,48 @@ class Parser
     public const INTEGER = 2;
     public const FLOAT   = 3;
     public const BOOL    = 4;
-    public const ARRAY   = 5;
 
     /** @var DocLexer */
     private $lexer;
 
-    /**
-     * Available enter-point nodes.
-     *
-     * @var NodeInterface=[]
-     */
+    /** @var NodeInterface=[] */
     private $nodes = [];
 
-    /** @param DocLexer $lexer */
+    /**
+     * @param DocLexer $lexer
+     */
     public function __construct(DocLexer $lexer = null)
     {
         $this->lexer = $lexer ?? new DocLexer();
     }
 
     /**
+     * Register new enter-point node. Each parsed node will be based on cloned copy of provided enter-point.
+     *
      * @param NodeInterface $node
+     * @return self
+     *
+     * @throws ParserException
      */
-    public function register(NodeInterface $node)
+    public function register(NodeInterface $node): self
     {
         if (isset($this->nodes[$node->getName()])) {
             throw new ParserException("Node with name {$node->getName()} already registered");
         }
 
         $this->nodes[$node->getName()] = $node;
+        return $this;
     }
 
+    /**
+     * Parse given docComment and return named list of captured nodes. If node has been found more than
+     * once in a target comment - parse method will return named array.
+     *
+     * @param string $body
+     * @return array
+     *
+     * @throws ParserException
+     */
     public function parse(string $body): array
     {
         if (is_null($this->nodes)) {
@@ -60,15 +76,17 @@ class Parser
 
         $result = [];
         foreach ($this->iterate() as $name => $node) {
-            if (isset($result[$name])) {
-                if (!is_array($result[$name])) {
-                    $result[$name] = [$result[$name]];
-                }
-
-                $result[$name][] = $node;
-            } else {
+            if (!isset($result[$name])) {
                 $result[$name] = $node;
+                continue;
             }
+
+            // multiple occasions
+            if (!is_array($result[$name])) {
+                $result[$name] = [$result[$name]];
+            }
+
+            $result[$name][] = $node;
         }
 
         return $result;
