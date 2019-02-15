@@ -9,7 +9,17 @@ declare(strict_types=1);
 
 namespace Spiral\Annotations;
 
-class NodeInterface
+// todo: must be cloneable
+interface NodeInterface
 {
-    // todo: all nodes in a scalar form? keep scalar nodes separatelly?
+    public function getName(): string;
+
+    /**
+     * Return Node schema in a form of [name => Node|SCALAR|[Node]].
+     *
+     * @return array
+     */
+    public function getSchema(): array;
+
+    public function setProperty(string $name, $value);
 }

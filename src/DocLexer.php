@@ -113,19 +113,19 @@ final class DocLexer extends AbstractLexer
             return $this->noCase[$value];
         }
 
-        if ($value[0] === '_' || $value[0] === '\\' || ctype_alpha($value[0])) {
-            return self::T_IDENTIFIER;
-        }
-
         $lowerValue = strtolower($value);
         if (isset($this->withCase[$lowerValue])) {
             return $this->withCase[$lowerValue];
         }
 
+        if ($value[0] === '_' || $value[0] === '\\' || ctype_alpha($value[0])) {
+
+            return self::T_IDENTIFIER;
+        }
+
         // Checking numeric value
         if (is_numeric($value)) {
-            return (strpos($value, '.') !== false || stripos($value, 'e') !== false)
-                ? self::T_FLOAT : self::T_INTEGER;
+            return (strpos($value, '.') !== false || stripos($value, 'e') !== false) ? self::T_FLOAT : self::T_INTEGER;
         }
 
         return $type;
