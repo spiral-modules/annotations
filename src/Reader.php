@@ -56,7 +56,7 @@ final class Reader
      * @param \ReflectionClass $class
      * @return array
      */
-    public function getClassAnnotations(\ReflectionClass $class): array
+    public function classAnnotations(\ReflectionClass $class): array
     {
         return $this->classParser->parse($class->getDocComment());
     }
@@ -70,9 +70,9 @@ final class Reader
      *
      * @throws \ReflectionException
      */
-    public function getMethodAnnotations(\ReflectionClass $class, string $method): array
+    public function methodAnnotations(\ReflectionClass $class, string $method): array
     {
-        return $this->classParser->parse($class->getMethod($method)->getDocComment());
+        return $this->methodParser->parse($class->getMethod($method)->getDocComment());
     }
 
     /**
@@ -84,8 +84,8 @@ final class Reader
      *
      * @throws \ReflectionException
      */
-    public function getPropertyAnnotations(\ReflectionClass $class, string $property)
+    public function propertyAnnotations(\ReflectionClass $class, string $property)
     {
-        return $this->classParser->parse($class->getProperty($property)->getDocComment());
+        return $this->propertyParser->parse($class->getProperty($property)->getDocComment());
     }
 }
