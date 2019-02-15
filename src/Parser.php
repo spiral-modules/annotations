@@ -117,6 +117,7 @@ class Parser
         while ($this->lexer->lookahead !== null) {
             // done with node definition
             if ($this->lexer->lookahead['type'] === DocLexer::T_CLOSE_PARENTHESIS) {
+                $this->lexer->moveNext();
                 return $node;
             }
 
@@ -125,14 +126,14 @@ class Parser
                 continue;
             }
 
-            $this->parseAttribute($node);
+            $this->attribute($node);
         }
 
         $this->match([DocLexer::T_CLOSE_PARENTHESIS]);
         return $node;
     }
 
-    private function parseAttribute(NodeInterface $node)
+    private function attribute(NodeInterface $node)
     {
         $name = $this->identifier();
         $this->match([DocLexer::T_EQUALS]);
@@ -141,8 +142,12 @@ class Parser
             throw new AnnotationException("Undefined node attribute {$name}");
         }
 
-        // todo: assert type
-        $node->{$name} = $this->value($node->getSchema()[$name]);
+        $type = $node->getSchema()[$name];
+        if (is_array($type)) {
+            $node->setProperty($name, $this->array(current($type)));
+        } else {
+            $node->setProperty($name, $this->value($type));
+        }
     }
 
     /**
@@ -152,10 +157,7 @@ class Parser
      */
     private function value($type)
     {
-        // if ($this->lexer->isNextToken(DocLexer::T_OPEN_CURLY_BRACES)) {
-        //            return 'awwwwww';
-        //return $this->Arrayx();
-        //      }
+        // todo: nested(!)
 
         //    if ($this->lexer->isNextToken(DocLexer::T_AT)) {
         //      return 'wat';
@@ -194,6 +196,32 @@ class Parser
             default:
                 return 'wat';
         }
+    }
+
+    private function array($type): array
+    {
+        $this->match([DocLexer::T_OPEN_CURLY_BRACES]);
+
+        // Parsing thought list of attributes
+        $result = [];
+        while ($this->lexer->lookahead !== null) {
+            // done with node definition
+            if ($this->lexer->lookahead['type'] === DocLexer::T_CLOSE_CURLY_BRACES) {
+                $this->lexer->moveNext();
+                return $result;
+            }
+
+            if ($this->lexer->lookahead['type'] === DocLexer::T_COMMA) {
+                $this->lexer->moveNext();
+                continue;
+            }
+
+            $result[] = $this->value($type);
+        }
+
+        $this->match([DocLexer::T_CLOSE_CURLY_BRACES]);
+
+        return $result;
     }
 
     /**
