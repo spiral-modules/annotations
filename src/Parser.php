@@ -6,7 +6,6 @@ declare(strict_types=1);
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
-
 namespace Spiral\Annotations;
 
 use Spiral\Annotations\Exception\AttributeException;
