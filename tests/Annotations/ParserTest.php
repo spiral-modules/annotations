@@ -144,4 +144,17 @@ class ParserTest extends BaseTest
 
         $p->parse($this->getDoc('testParseError8'));
     }
+
+    /**
+     * @nested (scalar=@nested(string="string"))
+     *
+     * @expectedException \Spiral\Annotations\Exception\AttributeException
+     */
+    public function testParseError9()
+    {
+        $p = new Parser();
+        $p->register(new Nested());
+
+        $p->parse($this->getDoc('testParseError9'));
+    }
 }
