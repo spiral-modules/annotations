@@ -20,6 +20,7 @@ class Scalar extends AbstractNode
         'integer'     => Parser::INTEGER,
         'bool'        => Parser::BOOL,
         'float'       => Parser::FLOAT,
+        'mixed'       => Parser::MIXED,
         'array_str'   => [Parser::STRING],
         'array_int'   => [Parser::INTEGER],
         'array_float' => [Parser::FLOAT],

@@ -25,7 +25,7 @@ final class Parser
     public const INTEGER = 2;
     public const FLOAT   = 3;
     public const BOOL    = 4;
-    public const NULL    = 16;
+    public const MIXED   = 5;
 
     /** @var DocLexer */
     private $lexer;
@@ -280,10 +280,6 @@ final class Parser
      */
     private function filter($value, int $type)
     {
-        if (is_null($value) && $type & self::NULL === 0) {
-            throw new ValueException("Value can not be null");
-        }
-
         switch ($type) {
             case self::INTEGER:
                 if (!is_integer($value)) {

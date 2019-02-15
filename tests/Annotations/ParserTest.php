@@ -11,6 +11,7 @@ namespace Spiral\Annotations\Tests;
 
 use Spiral\Annotations\Parser;
 use Spiral\Annotations\Tests\Node\Nested;
+use Spiral\Annotations\Tests\Node\Scalar;
 
 class ParserTest extends BaseTest
 {
@@ -84,5 +85,57 @@ class ParserTest extends BaseTest
         $p->register(new Nested());
 
         $p->parse($this->getDoc('testParseError4'));
+    }
+
+    /**
+     * @nested (unknown=1)
+     *
+     * @expectedException \Spiral\Annotations\Exception\AttributeException
+     */
+    public function testParseError5()
+    {
+        $p = new Parser();
+        $p->register(new Nested());
+
+        $p->parse($this->getDoc('testParseError5'));
+    }
+
+    /**
+     * @scalar (integer="a")
+     *
+     * @expectedException \Spiral\Annotations\Exception\AttributeException
+     */
+    public function testParseError6()
+    {
+        $p = new Parser();
+        $p->register(new Scalar());
+
+        $p->parse($this->getDoc('testParseError6'));
+    }
+
+    /**
+     * @scalar (float=false)
+     *
+     * @expectedException \Spiral\Annotations\Exception\AttributeException
+     */
+    public function testParseError7()
+    {
+        $p = new Parser();
+        $p->register(new Scalar());
+
+        $p->parse($this->getDoc('testParseError7'));
+    }
+
+    /**
+     * @scalar (bool="x")
+     *
+     * @expectedException \Spiral\Annotations\Exception\AttributeException
+     */
+    public function testParseError8()
+    {
+        $p = new Parser();
+        $p->register(new Scalar());
+
+        $p->parse($this->getDoc('testParseError8'));
     }
 }

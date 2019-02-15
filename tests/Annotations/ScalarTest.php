@@ -147,6 +147,45 @@ class ScalarTest extends BaseTest
     }
 
     /**
+     * @scalar (mixed = "message")
+     */
+    public function testMixed1()
+    {
+        $p = new Parser();
+        $p->register(new Scalar());
+
+        $nodes = $p->parse($this->getDoc('testMixed1'));
+        $this->assertInstanceOf(Scalar::class, $nodes['scalar']);
+        $this->assertSame("message", $nodes['scalar']->mixed);
+    }
+
+    /**
+     * @scalar (mixed = 123)
+     */
+    public function testMixed2()
+    {
+        $p = new Parser();
+        $p->register(new Scalar());
+
+        $nodes = $p->parse($this->getDoc('testMixed2'));
+        $this->assertInstanceOf(Scalar::class, $nodes['scalar']);
+        $this->assertSame(123, $nodes['scalar']->mixed);
+    }
+
+    /**
+     * @scalar (mixed = null)
+     */
+    public function testMixed3()
+    {
+        $p = new Parser();
+        $p->register(new Scalar());
+
+        $nodes = $p->parse($this->getDoc('testMixed3'));
+        $this->assertInstanceOf(Scalar::class, $nodes['scalar']);
+        $this->assertSame(null, $nodes['scalar']->mixed);
+    }
+
+    /**
      * @scalar (
      *     string="message",
      *     bool=false,
