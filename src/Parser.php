@@ -75,7 +75,7 @@ final class Parser
     {
         $this->context = $body;
 
-        if (is_null($this->nodes)) {
+        if ($this->nodes === []) {
             throw new ParserException("Unable to parse without starting nodes");
         }
 

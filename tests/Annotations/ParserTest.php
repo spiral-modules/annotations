@@ -25,6 +25,16 @@ class ParserTest extends BaseTest
     }
 
     /**
+     * @expectedException \Spiral\Annotations\Exception\ParserException
+     */
+    public function testNoNodes()
+    {
+        $p = new Parser();
+
+        $p->parse($this->getDoc('testNoNodes'));
+    }
+
+    /**
      * @nested (}
      *
      * @expectedException \Spiral\Annotations\Exception\SyntaxException
