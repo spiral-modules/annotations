@@ -93,12 +93,57 @@ class ScalarTest extends BaseTest
         $this->assertEquals(101.555, $nodes['scalar']->float);
     }
 
+    /**
+     * @scalar (string="message", bool=false, integer=101, float = 101.555)
+     */
     public function testFull()
     {
         $p = new Parser();
         $p->register(new ScalarNode());
 
         $nodes = $p->parse($this->getDoc('testFull'));
+        $this->assertInstanceOf(ScalarNode::class, $nodes['scalar']);
+        $this->assertEquals(101.555, $nodes['scalar']->float);
+        $this->assertSame(false, $nodes['scalar']->bool);
+        $this->assertSame(101, $nodes['scalar']->integer);
+        $this->assertSame("message", $nodes['scalar']->string);
+    }
+
+    /**
+     * @scalar (
+     *     string="message",
+     *     bool=false,
+     *     integer=101,
+     *     float = 101.555
+     * )
+     */
+    public function testFullSpaced()
+    {
+        $p = new Parser();
+        $p->register(new ScalarNode());
+
+        $nodes = $p->parse($this->getDoc('testFullSpaced'));
+        $this->assertInstanceOf(ScalarNode::class, $nodes['scalar']);
+        $this->assertEquals(101.555, $nodes['scalar']->float);
+        $this->assertSame(false, $nodes['scalar']->bool);
+        $this->assertSame(101, $nodes['scalar']->integer);
+        $this->assertSame("message", $nodes['scalar']->string);
+    }
+
+    /**
+     * @scalar (
+     *     string="message",
+     *     bool=false,
+     *     integer=101,
+     *     float = 101.555,
+     * )
+     */
+    public function testFullSpacedEndComma()
+    {
+        $p = new Parser();
+        $p->register(new ScalarNode());
+
+        $nodes = $p->parse($this->getDoc('testFullSpacedEndComma'));
         $this->assertInstanceOf(ScalarNode::class, $nodes['scalar']);
         $this->assertEquals(101.555, $nodes['scalar']->float);
         $this->assertSame(false, $nodes['scalar']->bool);
