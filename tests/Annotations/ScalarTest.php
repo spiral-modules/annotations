@@ -28,6 +28,22 @@ class ScalarTest extends BaseTest
     }
 
     /**
+     * @scalar (string = "message 1")
+     * @scalar (string = "message 2")
+     */
+    public function testMultiple()
+    {
+        $p = new Parser();
+        $p->register(new Scalar());
+
+        $nodes = $p->parse($this->getDoc('testMultiple'));
+        $this->assertInstanceOf(Scalar::class, $nodes['scalar'][0]);
+        $this->assertInstanceOf(Scalar::class, $nodes['scalar'][1]);
+        $this->assertSame("message 1", $nodes['scalar'][0]->string);
+        $this->assertSame("message 2", $nodes['scalar'][1]->string);
+    }
+
+    /**
      * @scalar (string = message)
      */
     public function testStringIdentifier()

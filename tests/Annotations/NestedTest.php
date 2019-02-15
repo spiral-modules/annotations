@@ -15,6 +15,32 @@ use Spiral\Annotations\Tests\Node\Nested;
 class NestedTest extends BaseTest
 {
     /**
+     * @nested
+     */
+    public function testEmpty()
+    {
+        $p = new Parser();
+        $p->register(new Nested());
+
+        $nodes = $p->parse($this->getDoc('testEmpty'));
+        $this->assertInstanceOf(Nested::class, $nodes['nested']);
+    }
+
+    /**
+     * @nested
+     *
+     * // hello world
+     */
+    public function testEmptyBeforeComment()
+    {
+        $p = new Parser();
+        $p->register(new Nested());
+
+        $nodes = $p->parse($this->getDoc('testEmptyBeforeComment'));
+        $this->assertInstanceOf(Nested::class, $nodes['nested']);
+    }
+
+    /**
      * @nested (name="name")
      */
     public function testSimple()

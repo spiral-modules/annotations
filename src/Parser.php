@@ -60,7 +60,15 @@ class Parser
 
         $result = [];
         foreach ($this->iterate() as $name => $node) {
-            $result[$name] = $node;
+            if (isset($result[$name])) {
+                if (!is_array($result[$name])) {
+                    $result[$name] = [$result[$name]];
+                }
+
+                $result[$name][] = $node;
+            } else {
+                $result[$name] = $node;
+            }
         }
 
         return $result;
@@ -99,7 +107,7 @@ class Parser
         $name = $this->identifier();
 
         if (!isset($this->nodes[$name])) {
-            // not starting node
+            // undefined node
             return;
         }
 
@@ -108,6 +116,16 @@ class Parser
 
     private function parseNode(NodeInterface $node): NodeInterface
     {
+        $next = $this->lexer->glimpse();
+        if (
+            is_null($next)
+            || $next['type'] === DocLexer::T_AT
+            || $next['type'] == DocLexer::T_NONE
+        ) {
+            // empty node declaration
+            return $node;
+        }
+
         // todo: it might not be parentesis as well (empty nodes)
 
         $this->match([DocLexer::T_OPEN_PARENTHESIS]);
