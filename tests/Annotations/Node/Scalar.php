@@ -7,12 +7,12 @@ declare(strict_types=1);
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Annotations\Tests\Fixtures;
+namespace Spiral\Annotations\Tests\Node;
 
-use Spiral\Annotations\AbstractNode;
+use Spiral\Annotations\Node;
 use Spiral\Annotations\Parser;
 
-class Scalar extends AbstractNode
+class Scalar extends Node
 {
     protected const NAME   = 'scalar';
     protected const SCHEMA = [

@@ -12,7 +12,7 @@ namespace Spiral\Annotations;
 /**
  * Constant based node declaration.
  */
-abstract class AbstractNode implements NodeInterface
+abstract class Node implements NodeInterface
 {
     protected const NAME   = '';
     protected const SCHEMA = [];

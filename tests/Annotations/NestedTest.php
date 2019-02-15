@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Spiral\Annotations\Tests;
 
 use Spiral\Annotations\Parser;
-use Spiral\Annotations\Tests\Fixtures\Nested;
+use Spiral\Annotations\Tests\Node\Nested;
 
 class NestedTest extends BaseTest
 {

@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Spiral\Annotations\Tests;
 
 use Spiral\Annotations\Parser;
-use Spiral\Annotations\Tests\Fixtures\Matrix;
-use Spiral\Annotations\Tests\Fixtures\Scalar;
+use Spiral\Annotations\Tests\Node\Matrix;
+use Spiral\Annotations\Tests\Node\Scalar;
 
 class ArrayTest extends BaseTest
 {

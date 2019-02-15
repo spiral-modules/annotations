@@ -7,12 +7,12 @@ declare(strict_types=1);
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Annotations\Tests\Fixtures;
+namespace Spiral\Annotations\Tests\Node;
 
-use Spiral\Annotations\AbstractNode;
+use Spiral\Annotations\Node;
 use Spiral\Annotations\Parser;
 
-class Nested extends AbstractNode
+class Nested extends Node
 {
     protected const NAME   = 'nested';
     protected const SCHEMA = [
