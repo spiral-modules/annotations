@@ -9,9 +9,16 @@ declare(strict_types=1);
 
 namespace Spiral\Annotations;
 
-// todo: must be cloneable
+/**
+ * Carries information about annotation structure and it values.
+ */
 interface NodeInterface
 {
+    /**
+     * Public and unique node name.
+     *
+     * @return string
+     */
     public function getName(): string;
 
     /**
@@ -21,5 +28,11 @@ interface NodeInterface
      */
     public function getSchema(): array;
 
-    public function setProperty(string $name, $value);
+    /**
+     * Set node attribute value.
+     *
+     * @param string $name
+     * @param mixed  $value
+     */
+    public function setAttribute(string $name, $value);
 }

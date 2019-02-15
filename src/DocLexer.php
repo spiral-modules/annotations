@@ -53,6 +53,26 @@ final class DocLexer extends AbstractLexer
     public const T_NULL                = 111;
     public const T_COLON               = 112;
 
+    // token map (only selected tokens)
+    public const TOKEN_MAP = [
+        self::T_STRING              => 'string',
+        self::T_INTEGER             => 'integer',
+        self::T_FLOAT               => 'float',
+        self::T_IDENTIFIER          => 'identifier',
+        self::T_AT                  => '@',
+        self::T_CLOSE_CURLY_BRACES  => '}',
+        self::T_CLOSE_PARENTHESIS   => ')',
+        self::T_COMMA               => ',',
+        self::T_EQUALS              => '=',
+        self::T_NAMESPACE_SEPARATOR => '\\',
+        self::T_OPEN_CURLY_BRACES   => '{',
+        self::T_OPEN_PARENTHESIS    => '(',
+        self::T_TRUE                => 'true',
+        self::T_FALSE               => 'false',
+        self::T_NULL                => 'null',
+        self::T_COLON               => ':',
+    ];
+
     /**
      * @var array
      */

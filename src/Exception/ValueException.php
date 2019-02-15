@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Spiral\Annotations\Exception;
 
-class AnnotationException extends ParserException
+class ValueException extends ParserException
 {
 
 }

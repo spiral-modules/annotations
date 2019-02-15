@@ -44,7 +44,7 @@ abstract class AbstractNode implements NodeInterface
     /**
      * @inheritdoc
      */
-    public function setProperty(string $name, $value)
+    public function setAttribute(string $name, $value)
     {
         $this->{$name} = $value;
     }

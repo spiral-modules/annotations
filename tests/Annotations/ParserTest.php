@@ -23,4 +23,56 @@ class ParserTest extends BaseTest
         $p->register(new Nested());
         $p->register(new Nested());
     }
+
+    /**
+     * @nested (}
+     *
+     * @expectedException \Spiral\Annotations\Exception\SyntaxException
+     */
+    public function testParseError()
+    {
+        $p = new Parser();
+        $p->register(new Nested());
+
+        $p->parse($this->getDoc('testParseError'));
+    }
+
+    /**
+     * @nested (name=
+     *
+     * @expectedException \Spiral\Annotations\Exception\SyntaxException
+     */
+    public function testParseError2()
+    {
+        $p = new Parser();
+        $p->register(new Nested());
+
+        $p->parse($this->getDoc('testParseError2'));
+    }
+
+    /**
+     * @nested (name=)
+     *
+     * @expectedException \Spiral\Annotations\Exception\SyntaxException
+     */
+    public function testParseError3()
+    {
+        $p = new Parser();
+        $p->register(new Nested());
+
+        $p->parse($this->getDoc('testParseError3'));
+    }
+
+    /**
+     * @nested (mm={)
+     *
+     * @expectedException \Spiral\Annotations\Exception\SyntaxException
+     */
+    public function testParseError4()
+    {
+        $p = new Parser();
+        $p->register(new Nested());
+
+        $p->parse($this->getDoc('testParseError4'));
+    }
 }
