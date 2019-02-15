@@ -30,7 +30,7 @@ final class Parser
     /** @var DocLexer */
     private $lexer;
 
-    /** @var NodeInterface=[] */
+    /** @var NodeInterface[] */
     private $nodes = [];
 
     /** @var string */
