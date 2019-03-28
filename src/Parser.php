@@ -130,7 +130,7 @@ final class Parser
             $pos++;
         }
 
-        return null;
+        return 0;
     }
 
     /**
