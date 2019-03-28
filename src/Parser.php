@@ -276,6 +276,13 @@ final class Parser
             return $ann;
         }
 
+        if (!is_int($type)) {
+            throw new ParserException(sprintf(
+                "Invalid attribute type `%s`",
+                is_object($type) ? get_class($type) : $type
+            ));
+        }
+
         return $this->filter($this->rawValue(), $type);
     }
 
