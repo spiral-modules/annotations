@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 /**
  * Spiral Framework.
  *
@@ -130,7 +129,7 @@ final class Parser
             $pos++;
         }
 
-        return null;
+        return 0;
     }
 
     /**
@@ -274,6 +273,13 @@ final class Parser
             }
 
             return $ann;
+        }
+
+        if (!is_int($type)) {
+            throw new ParserException(sprintf(
+                "Invalid attribute type `%s`",
+                is_object($type) ? get_class($type) : $type
+            ));
         }
 
         return $this->filter($this->rawValue(), $type);
