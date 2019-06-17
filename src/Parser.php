@@ -62,11 +62,11 @@ final class Parser
      */
     public function register(AnnotationInterface $annotation): self
     {
-        if (isset($this->annotations[$annotation->getName()])) {
+        if (isset($this->annotations[lcfirst($annotation->getName())])) {
             throw new ParserException("Node with name {$annotation->getName()} already registered");
         }
 
-        $this->annotations[$annotation->getName()] = $annotation;
+        $this->annotations[lcfirst($annotation->getName())] = $annotation;
         return $this;
     }
 
@@ -175,16 +175,16 @@ final class Parser
         // check if we have an annotation
         $name = $this->identifier();
 
-        if (!isset($this->annotations[$name])) {
+        if (!isset($this->annotations[lcfirst($name)])) {
             // undefined node or not a node at all
             return;
         }
 
         /** @var AnnotationInterface $ann */
-        $ann = clone $this->annotations[$name];
+        $ann = clone $this->annotations[lcfirst($name)];
 
         if ($this->lexer->isNextToken(DocLexer::T_OPEN_PARENTHESIS)) {
-            foreach ($this->attributes($this->annotations[$name]) as $attribute => $value) {
+            foreach ($this->attributes($this->annotations[lcfirst($name)]) as $attribute => $value) {
                 $ann->setAttribute($attribute, $value);
             }
         }
