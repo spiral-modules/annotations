@@ -92,7 +92,7 @@ final class Parser
 
         $result = [];
         foreach ($this->iterate() as $name => $node) {
-            $name = lcfirst($name);
+            $name = $this->annotations[lcfirst($name)]->getName();
 
             if (!isset($result[$name])) {
                 $result[$name] = $node;
