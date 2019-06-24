@@ -87,6 +87,23 @@ class NestedTest extends BaseTest
     }
 
     /**
+     * @Nested (
+     *     name   = "name",
+     *     scalar = @Scalar(string = "string")
+     * )
+     */
+    public function testNamedCapitalized()
+    {
+        $p = new Parser();
+        $p->register(new Nested());
+
+        $nodes = $p->parse($this->getDoc('testNamed'));
+        $this->assertInstanceOf(Nested::class, $nodes['nested']);
+        $this->assertSame("name", $nodes['nested']->name);
+        $this->assertSame("string", $nodes['nested']->scalar->string);
+    }
+
+    /**
      * @nested (
      *     name   = "name",
      *     scalar_arr = {
