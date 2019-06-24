@@ -92,6 +92,8 @@ final class Parser
 
         $result = [];
         foreach ($this->iterate() as $name => $node) {
+            $name = lcfirst($name);
+
             if (!isset($result[$name])) {
                 $result[$name] = $node;
                 continue;
