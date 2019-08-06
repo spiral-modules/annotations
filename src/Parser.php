@@ -261,7 +261,7 @@ final class Parser
                 $this->lexer->moveNext();
 
                 $name = $this->identifier();
-                if ($name != $type->getName()) {
+                if (lcfirst($name) !== lcfirst($type->getName())) {
                     throw new AttributeException(sprintf(
                         "Expected node type %s given %s",
                         $type->getName(),
