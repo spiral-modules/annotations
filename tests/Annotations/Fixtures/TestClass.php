@@ -16,5 +16,4 @@ use Spiral\Annotations\Tests\Fixtures\Annotation\Value;
  */
 class TestClass
 {
-
 }
