@@ -1,6 +1,6 @@
 # Automatic Annotation Discovery
+[![Latest Stable Version](https://poser.pugx.org/spiral/annotations/version)](https://packagist.org/packages/spiral/annotations)
 [![Build Status](https://travis-ci.org/spiral/annotations.svg?branch=master)](https://travis-ci.org/spiral/annotations)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/spiral/annotations/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/spiral/annotations/?branch=master)
 [![Codecov](https://codecov.io/gh/spiral/annotations/graph/badge.svg)](https://codecov.io/gh/spiral/annotations)
 
 ## Installation
