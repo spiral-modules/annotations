@@ -5,3 +5,21 @@
 
 ## Installation
 Service does not require any bootloader and can be enabled in spiral application with simple composer dependency.
+
+```bash
+$ composer require spiral/annotations 
+```
+
+## Example
+To find all annotated classes:
+
+```php
+use Spiral\Annotations;
+
+$locator = new Annotations\AnnotationLocator($classLocator); 
+
+foreach($locator->findClasses(MyAnnotation::class) as $class) {
+    dump($class->getClass());
+    dump($class->getAnnotation());
+} 
+```
