@@ -43,6 +43,7 @@ class LocatorTest extends TestCase
 
         foreach ($props as $prop) {
             $this->assertSame(TestClass::class, $prop->getClass()->getName());
+            $this->assertSame('name', $prop->getProperty()->getName());
             $this->assertSame('123', $prop->getAnnotation()->id);
         }
     }
@@ -56,6 +57,7 @@ class LocatorTest extends TestCase
 
         foreach ($methods as $m) {
             $this->assertSame(TestClass::class, $m->getClass()->getName());
+            $this->assertSame('testMethod', $m->getMethod()->getName());
             $this->assertSame('/', $m->getAnnotation()->path);
         }
     }
