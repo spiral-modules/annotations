@@ -74,10 +74,10 @@ final class AnnotationLocator implements SingletonInterface
     /**
      * Find all methods with given annotation.
      *
-     * @param array $annotation
+     * @param string $annotation
      * @return iterable|AnnotatedMethod[]
      */
-    public function findMethods(array $annotation): iterable
+    public function findMethods(string $annotation): iterable
     {
         foreach ($this->getTargets() as $target) {
             foreach ($target->getMethods() as $method) {
